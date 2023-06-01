@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.0</version>
+        <version>2.6.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.hm</groupId>
@@ -18,13 +18,14 @@
         <module>order-form</module>
         <module>repository</module>
         <module>login</module>
+        <module>common</module>
     </modules>
     <name>hmx</name>
 
     <properties>
-        <java.version>15</java.version>
+        <java.version>8</java.version>
     </properties>
-<dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -44,7 +45,6 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.28</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
         <dependency>
@@ -60,7 +60,7 @@
         </dependency>
 
     </dependencies>
-</dependencyManagement>
+
 
 
 </project>
