@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2023/5/27
  **/
 @RestController
-public class TestController {
+public class UserController {
     /**
      * @Autowired 功能： 赋值
      */
