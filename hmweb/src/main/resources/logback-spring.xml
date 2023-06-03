@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <contextName>logback-Insight</contextName>
+
+
+    <springProperty scope="context" name="LOG_HOME" source="logging.file.path"/>
+
+    <appender name="default" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/hmx-default.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 滚动时产生的文件的存放位置及文件名称 %d{yyyy-MM-dd}：按天进行日志滚动
+             %i：当文件大小超过maxFileSize时，按照i进行文件滚动-->
+            <fileNamePattern>${LOG_HOME}/hmx-default-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <MaxHistory>7</MaxHistory>
+            <!--当日志文件超过maxFileSize指定的大小时，根据上面提到的%i进行日志文件滚动-->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>300MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <charset>UTF-8</charset>
+            <!--日志输出格式：%d表示日期时间，%thread表示线程名，%-5level：级别从左显示5个字符宽度
+            %logger{50} 表示logger名字最长50个字符，否则按照句点分割。 %msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{SOFA-TraceId},%X{SOFA-SpanId}] %thread %level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+
+    <!--##钉钉服务端请求-->
+    <appender name="dingdingClient" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/insightStar-dingdingClient.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/insightStar-dingdingClient-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <MaxHistory>7</MaxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>300MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <charset>UTF-8</charset>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{SOFA-TraceId},%X{SOFA-SpanId}] %thread %level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender> <!--用于将日志输出到控制台，测试使用-->
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        　　　　　
+        <encoder>
+            　　　　　　　　　
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{SOFA-TraceId},%X{SOFA-SpanId}] %thread %level %logger{50} - %msg%n</pattern>
+            　　　　　
+        </encoder>
+        　
+    </appender>
+
+
+    <root level="INFO">
+        <!--用于将日志输出到控制台，测试使用-->
+        <appender-ref ref="STDOUT"/>
+        <!--appender将会添加到这个loger-->
+        <appender-ref ref="default"/>
+    </root>
+
+    <logger name="defaultLog" level="INFO" additivity="false">
+        <appender-ref ref="default" />
+    </logger>
+
+
+</configuration>
