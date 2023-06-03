@@ -28,5 +28,11 @@ public class ProductController {
         return productService.list();
     }
 
+    @RequestMapping("/addProduct")
+    public List<Product> addProduct(){
+        log.info("sadashfasifhas");
+        return productService.list();
+    }
+
 
 }
